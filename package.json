@@ -1,0 +1,48 @@
+{
+  "name": "mitrajit-email-scheduler",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -k -n api,worker,web -c cyan,magenta,green \"npm:dev:api\" \"npm:dev:worker\" \"npm:dev:web\"",
+    "dev:api": "tsx watch src/server.ts",
+    "dev:worker": "tsx watch src/worker.ts",
+    "dev:web": "next dev",
+    "build": "prisma generate && tsc --noEmit && tsc -p tsconfig.server.json && next build",
+    "start": "concurrently -k -n api,worker,web \"npm:start:api\" \"npm:start:worker\" \"npm:start:web\"",
+    "start:api": "node dist/server.js",
+    "start:worker": "node dist/worker.js",
+    "start:web": "next start",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "smtp:ethereal": "tsx src/create-ethereal-account.ts"
+  },
+  "dependencies": {
+    "@bull-board/api": "^6.9.1",
+    "@bull-board/express": "^6.9.1",
+    "@elastic/elasticsearch": "^8.17.0",
+    "@prisma/client": "^6.2.1",
+    "bullmq": "^5.34.3",
+    "concurrently": "^9.1.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "ioredis": "^5.4.2",
+    "next": "^15.1.6",
+    "nodemailer": "^10.1.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.7",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "prisma": "^6.2.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "overrides": {
+    "deepmerge-ts": "^8.0.0",
+    "postcss": "^8.5.23"
+  }
+}
